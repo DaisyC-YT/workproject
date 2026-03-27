@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電商啟動期 SEO 策略指揮中心 v3</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            700: '#0f766e',
+                            900: '#134e4a',
+                        },
+                        accent: {
+                            500: '#f59e0b',
+                            600: '#d97706'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        .tab-active {
+            border-bottom: 2px solid #14b8a6;
+            color: #0f766e;
+            font-weight: 600;
+        }
+        .nav-active {
+            background-color: #f0fdfa;
+            color: #0f766e;
+            border-right: 4px solid #14b8a6;
+        }
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col md:flex-row">
+
+    <!-- Chosen Palette: Teal (Trust) and Amber (Attention). A clean, professional dashboard for strategic planning. -->
+    <!-- Application Structure Plan: 
+         1. Overview: Quick summary and 4-week roadmap.
+         2. Architecture: Detailed URL rules (/zh/product/slug) and technical checklists.
+         3. Products: Deep dive into Real vs Fake product handling with logic for权重 (weight) distribution.
+         4. Growth: Detailed redirect funnel logic to Shopee and E-A-T building through blogging.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="w-full md:w-64 bg-white shadow-lg md:h-screen md:sticky top-0 z-10 flex flex-col">
+        <div class="p-6 border-b border-slate-100">
+            <h1 class="text-xl font-bold text-slate-900 tracking-tight">SEO Strategy<br><span class="text-brand-500 text-sm font-medium">Command Center v3</span></h1>
+            <p class="text-xs text-slate-500 mt-2">完整策略執行版</p>
+        </div>
+        <ul class="flex flex-row md:flex-col overflow-x-auto md:overflow-visible py-4" id="nav-menu">
+            <li><button data-target="sec-overview" class="nav-btn w-full text-left px-6 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 transition whitespace-nowrap md:whitespace-normal">📊 策略總覽</button></li>
+            <li><button data-target="sec-architecture" class="nav-btn w-full text-left px-6 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 transition whitespace-nowrap md:whitespace-normal">⚙️ 網址與架構規範</button></li>
+            <li><button data-target="sec-products" class="nav-btn w-full text-left px-6 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 transition nav-active whitespace-nowrap md:whitespace-normal">🛍️ 商品佈局策略</button></li>
+            <li><button data-target="sec-growth" class="nav-btn w-full text-left px-6 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 transition whitespace-nowrap md:whitespace-normal">🚀 流量保護與增長</button></li>
+        </ul>
+        <div class="mt-auto p-4 hidden md:block">
+            <div class="bg-brand-900 text-white p-4 rounded-lg text-xs">
+                <strong>Senior Lead's Note:</strong><br>
+                「先有收錄，才有排名；先有信任，才有轉化。」不要急著賣貨，先讓 Google 覺得你是專家。
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-1 p-6 md:p-10 lg:p-12 overflow-y-auto">
+        
+        <!-- SECTION 3: Product Layout Strategy (DETAILED) -->
+        <section id="sec-products" class="content-section active max-w-5xl mx-auto">
+            <header class="mb-8">
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">商品佈局：以少勝多的權重佈陣</h2>
+                <p class="text-slate-600">目前站點僅有 6 件真商品。我們的策略是：利用假商品填充「廣度」，利用真商品深挖「厚度」，並透過分類頁面進行權重引導。</p>
+            </header>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-10">
+                <div class="flex border-b border-slate-200">
+                    <button id="tab-real" class="flex-1 py-4 text-center font-medium tab-active transition focus:outline-none bg-white">🚀 真商品：SEO 進攻戰術</button>
+                    <button id="tab-fake" class="flex-1 py-4 text-center font-medium text-slate-500 hover:text-slate-800 transition focus:outline-none bg-slate-50">🛡️ 假商品：SEO 防禦戰術</button>
+                </div>
+
+                <div class="p-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <div id="product-details" class="space-y-6">
+                        <!-- Dynamic Content Placeholder -->
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-brand-700">6 件核心真商品：極致優化</h3>
+                            <div class="bg-brand-50 border-l-4 border-brand-500 p-4">
+                                <p class="text-sm font-bold mb-1">1. 長尾關鍵字霸佔 (Long-tail Domination)</p>
+                                <p class="text-xs text-slate-600">針對商品規格撰寫 1000 字以上的原創內容，包含「材質比較」、「洗滌方式」、「穿搭建議」。</p>
+                            </div>
+                            <div class="bg-brand-50 border-l-4 border-brand-500 p-4">
+                                <p class="text-sm font-bold mb-1">2. 結構化資料 (Product Schema)</p>
+                                <p class="text-xs text-slate-600">必須提供 `aggregateRating` (評價數) 與 `price`。即便目前是手動輸入，也要讓 Google 呈現星星評分。</p>
+                            </div>
+                            <div class="bg-brand-50 border-l-4 border-brand-500 p-4">
+                                <p class="text-sm font-bold mb-1">3. FAQ 豐富片段</p>
+                                <p class="text-xs text-slate-600">在頁面底部加入 3-5 個常見問題，並標記 FAQ Schema，爭取在搜尋結果佔據更大視覺空間。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center">
+                        <div class="chart-container" style="height: 250px;">
+                            <canvas id="productWeightChart"></canvas>
+                        </div>
+                        <div class="mt-6 w-full space-y-4">
+                            <h4 class="text-sm font-bold text-slate-700">分類頁 (Category) 權重傳遞邏輯</h4>
+                            <div class="text-xs text-slate-600 space-y-2">
+                                <p class="flex items-center"><span class="w-3 h-3 bg-brand-500 rounded-full mr-2"></span> 分類頁面透過 Breadcrumbs 接收全站權重。</p>
+                                <p class="flex items-center"><span class="w-3 h-3 bg-brand-500 rounded-full mr-2"></span> 真商品透過「熱銷推薦」出現在所有分類頁。</p>
+                                <p class="flex items-center"><span class="w-3 h-3 bg-slate-200 rounded-full mr-2"></span> 假商品僅作為內容密度支撐，不參與內部鏈結競爭。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schema Code Preview -->
+            <div class="bg-slate-900 rounded-xl p-6 overflow-hidden border border-slate-700">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-brand-400 font-mono text-xs font-bold">Recommended JSON-LD for Products</span>
+                    <span class="bg-slate-800 text-slate-400 px-2 py-1 rounded text-[10px]">REQUIRED FOR INDEXING</span>
+                </div>
+                <pre class="text-slate-300 text-xs font-mono overflow-x-auto leading-relaxed">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "復古水洗牛仔褲",
+  "image": ["https://atisamani.com/img/jeans.jpg"],
+  "description": "高品質水洗工藝...",
+  "sku": "AT-001",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://atisamani.com/zh/product/retro-jeans/",
+    "priceCurrency": "TWD",
+    "price": "1280",
+    "availability": "https://schema.org/InStock" // 假商品改為 OutOfStock
+  }
+}</pre>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Traffic & Growth (DETAILED) -->
+        <section id="sec-growth" class="content-section max-w-5xl mx-auto">
+            <header class="mb-8">
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">流量保護：金流未串時的 SEO 守門員</h2>
+                <p class="text-slate-600">目前的商業邏輯是：站點提供資訊，蝦皮提供交易。我們必須確保用戶與爬蟲在這個過程中不會感到困惑或流失。</p>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+                <!-- Redirect Funnel -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center"><span class="mr-2">🛡️</span> 蝦皮外導防禦機制</h3>
+                    <div class="space-y-6">
+                        <div class="relative pl-8 border-l-2 border-slate-100">
+                            <div class="absolute -left-2.5 top-0 w-5 h-5 bg-brand-500 rounded-full border-4 border-white"></div>
+                            <h4 class="text-sm font-bold text-slate-800">第一步：內容錨定</h4>
+                            <p class="text-xs text-slate-600 mt-1">用戶在站內停留 60 秒以上，閱讀完商品規格。增加 Dwell Time。</p>
+                        </div>
+                        <div class="relative pl-8 border-l-2 border-slate-100">
+                            <div class="absolute -left-2.5 top-0 w-5 h-5 bg-brand-500 rounded-full border-4 border-white"></div>
+                            <h4 class="text-sm font-bold text-slate-800">第二步：軟性導向按鈕</h4>
+                            <p class="text-xs text-slate-600 mt-1">按鈕帶有 `rel="nofollow sponsored"`。明確告知 Google 這是商業合作連結。</p>
+                        </div>
+                        <div class="relative pl-8 border-l-2 border-slate-100">
+                            <div class="absolute -left-2.5 top-0 w-5 h-5 bg-accent-500 rounded-full border-4 border-white"></div>
+                            <h4 class="text-sm font-bold text-slate-800">第三步：中間確認頁 (可選)</h4>
+                            <p class="text-xs text-slate-600 mt-1">「即將前往官方蝦皮店領取 9 折券」。這能有效追蹤轉換來源並讓 Google 看到更多站內行為。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Growth Strategy -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center"><span class="mr-2">📈</span> 外部信號與 E-A-T 建立</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-50 rounded-lg">
+                            <h4 class="text-sm font-bold text-slate-800">論壇推薦 (Referral)</h4>
+                            <p class="text-xs text-slate-600 mt-1">在 Dcard 穿搭版發佈實穿文，連結指向「官網文章」而非蝦皮。官網再轉導蝦皮。這樣能累積官網的 Domain Authority。</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-lg">
+                            <h4 class="text-sm font-bold text-slate-800">部落格長尾 (Blog Strategy)</h4>
+                            <p class="text-xs text-slate-600 mt-1">針對「復古服飾穿搭」、「水洗單寧保養」撰寫文章。這些知識性內容更容易獲得 Google Discover 的推薦流量。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lead's Checklist -->
+            <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 mb-6">流量保護執行查核</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label class="flex items-center space-x-3 p-4 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100 transition">
+                        <input type="checkbox" class="w-5 h-5 text-brand-600 rounded">
+                        <span class="text-xs font-medium text-slate-700">所有 Shopee 連結已加入 nofollow</span>
+                    </label>
+                    <label class="flex items-center space-x-3 p-4 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100 transition">
+                        <input type="checkbox" class="w-5 h-5 text-brand-600 rounded">
+                        <span class="text-xs font-medium text-slate-700">真商品 PDP 頁面包含「蝦皮專屬優惠」引導</span>
+                    </label>
+                    <label class="flex items-center space-x-3 p-4 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100 transition">
+                        <input type="checkbox" class="w-5 h-5 text-brand-600 rounded">
+                        <span class="text-xs font-medium text-slate-700">首頁設有「品牌故事」區塊建立 E-A-T</span>
+                    </label>
+                    <label class="flex items-center space-x-3 p-4 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100 transition">
+                        <input type="checkbox" class="w-5 h-5 text-brand-600 rounded">
+                        <span class="text-xs font-medium text-slate-700">GA4 已設定「點擊外部連結」事件追蹤</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Placeholder Sections -->
+        <section id="sec-overview" class="content-section max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold mb-4">策略總覽</h2>
+            <div class="p-10 bg-white rounded-xl shadow-sm border border-slate-200">請切換標籤至「商品佈局」或「流量保護」查看更新。</div>
+        </section>
+        <section id="sec-architecture" class="content-section max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold mb-4">網址與架構規範</h2>
+            <div class="p-10 bg-white rounded-xl shadow-sm border border-slate-200">確保網址結構為 `/zh/product/英文-Slug/`。</div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation logic
+            const navBtns = document.querySelectorAll('.nav-btn');
+            const sections = document.querySelectorAll('.content-section');
+
+            navBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    navBtns.forEach(b => b.classList.remove('nav-active'));
+                    btn.classList.add('nav-active');
+                    const targetId = btn.getAttribute('data-target');
+                    sections.forEach(sec => {
+                        sec.classList.remove('active');
+                        if(sec.id === targetId) sec.classList.add('active');
+                    });
+                });
+            });
+
+            // Product Weight Chart
+            const ctxProduct = document.getElementById('productWeightChart').getContext('2d');
+            let productChart = new Chart(ctxProduct, {
+                type: 'doughnut',
+                data: {
+                    labels: ['真商品流量貢獻', '假商品結構貢獻'],
+                    datasets: [{
+                        data: [80, 20],
+                        backgroundColor: ['#14b8a6', '#f1f5f9'],
+                        borderWidth: 0,
+                        cutout: '70%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } }
+                }
+            });
+
+            // Product Tab Switching Logic
+            const tabReal = document.getElementById('tab-real');
+            const tabFake = document.getElementById('tab-fake');
+            const productDetails = document.getElementById('product-details');
+
+            const updateProductContent = (isReal) => {
+                if (isReal) {
+                    tabReal.className = "flex-1 py-4 text-center font-medium tab-active transition focus:outline-none bg-white";
+                    tabFake.className = "flex-1 py-4 text-center font-medium text-slate-500 hover:text-slate-800 transition focus:outline-none bg-slate-50";
+                    productDetails.innerHTML = `
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-brand-700">6 件核心真商品：極致優化</h3>
+                            <div class="bg-brand-50 border-l-4 border-brand-500 p-4">
+                                <p class="text-sm font-bold mb-1">1. 長尾關鍵字霸佔</p>
+                                <p class="text-xs text-slate-600 mt-1">針對「復古水洗」、「單寧保養」撰寫 1000 字以上原創內容，提升長尾排名。</p>
+                            </div>
+                            <div class="bg-brand-50 border-l-4 border-brand-500 p-4">
+                                <p class="text-sm font-bold mb-1">2. 結構化資料 (Product Schema)</p>
+                                <p class="text-xs text-slate-600 mt-1">包含 AggregateRating 與 Price，爭取搜尋結果星星標註。</p>
+                            </div>
+                        </div>
+                    `;
+                    productChart.data.datasets[0].data = [80, 20];
+                    productChart.data.datasets[0].backgroundColor = ['#14b8a6', '#f1f5f9'];
+                } else {
+                    tabFake.className = "flex-1 py-4 text-center font-medium tab-active border-b-accent-500 text-accent-600 transition focus:outline-none bg-white";
+                    tabReal.className = "flex-1 py-4 text-center font-medium text-slate-500 hover:text-slate-800 transition focus:outline-none bg-slate-50";
+                    productDetails.innerHTML = `
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-accent-600">填充用假商品：結構支撐</h3>
+                            <div class="bg-amber-50 border-l-4 border-accent-500 p-4">
+                                <p class="text-sm font-bold mb-1">1. 缺貨標註 (OutOfStock)</p>
+                                <p class="text-xs text-slate-600 mt-1">明確標記庫存為 0，避免用戶下單，但保留 URL 給 Google 收錄分類權重。</p>
+                            </div>
+                            <div class="bg-amber-50 border-l-4 border-accent-500 p-4">
+                                <p class="text-sm font-bold mb-1">2. 自動引導真商品</p>
+                                <p class="text-xs text-slate-600 mt-1">假商品下方一律放置「您可能也會喜歡」區塊，導向那 6 件真商品。</p>
+                            </div>
+                        </div>
+                    `;
+                    productChart.data.datasets[0].data = [20, 80];
+                    productChart.data.datasets[0].backgroundColor = ['#f1f5f9', '#f59e0b'];
+                }
+                productChart.update();
+            };
+
+            tabReal.addEventListener('click', () => updateProductContent(true));
+            tabFake.addEventListener('click', () => updateProductContent(false));
+        });
+    </script>
+</body>
+</html>
